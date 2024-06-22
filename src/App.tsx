@@ -125,7 +125,10 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchVerses = async () => {
       try {
-        const res = await fetch(`./${language}Verses.json`);
+        const res = await fetch(`../${language}Verses.json`);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
         const data = await res.json();
         if (selectedSurah !== null) {
           setVerses(data[selectedSurah].verses.map((verse: any) => verse.text));
